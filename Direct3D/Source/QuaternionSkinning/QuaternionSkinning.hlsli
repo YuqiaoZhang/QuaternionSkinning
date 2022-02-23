@@ -30,19 +30,20 @@
 // Global variables
 //--------------------------------------------------------------------------------------
 
-float4x4    g_mWorld : World;                  // World matrix for object
-float4x4    g_mWorldViewProjection : WorldViewProjection;    // World * View * Projection matrix
-float3      g_EyePos : CAMERAPOS;
-
-cbuffer animationvars
+cbuffer _unused_name_per_drawcall_uniform_buffer
 {
-    matrix    g_matrices[MATRIX_PALETTE_SIZE_DEFAULT];
-    float2x4  g_dualquat[MATRIX_PALETTE_SIZE_DEFAULT];
-    float3      g_instanceColor = float3(1,1,1);
+    float4x4    g_mWorld; // World matrix for object
+    float4x4    g_mWorldViewProjection;    // World * View * Projection matrix
+
+    float4x4 g_matrices[MATRIX_PALETTE_SIZE_DEFAULT];
+    float2x4 g_dualquat[MATRIX_PALETTE_SIZE_DEFAULT];
+    float3 g_instanceColor = float3(1,1,1);
 }
 
-cbuffer cLighting
+cbuffer _unused_name_per_frame_uniform_buffer
 {
+    float3      g_EyePos;
+
     float3      g_lightPos = float3(-13.f, 25.0f, -48.0f);
     float       Diffuse = 3.39 ;
     float       Specular = 0.506;
@@ -50,7 +51,7 @@ cbuffer cLighting
     float       Roughness = 0.072 ;
    
     float       AmbientScale = 0.08;
-    float4      AmbiColor = float4(0.5,0.5,0.5,0);
+    float3      AmbiColor = float3(0.5,0.5,0.5);
     float       Bumps = 0.55;
 };
 
@@ -445,7 +446,7 @@ float4 CharacterPS( VS_to_PS input) : SV_Target
     float3 Hn = normalize(Vn + Ln);
 
     float4 txcolor = g_txDiffuse.Sample(g_samLinear,input.tex.xyz) ;
-    return txcolor * (Diffuse * max(dot(Ln,Nb), 0) + Specular * SimpleCookTorrance( Nb, Ln, Vn, Roughness )) + AmbientScale * AmbiColor ;
+    return txcolor * (Diffuse * max(dot(Ln,Nb), 0) + Specular * SimpleCookTorrance( Nb, Ln, Vn, Roughness )) + AmbientScale * float4(AmbiColor, 0) ;
 }
 
 float Kd_t = 0.4f;

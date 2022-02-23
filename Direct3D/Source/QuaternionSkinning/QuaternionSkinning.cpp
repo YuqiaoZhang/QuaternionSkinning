@@ -113,6 +113,28 @@ bool g_bNoUpdates = false;
 #define IDC_BUMPS 115
 #define IDC_BUMPS_STATIC 116
 
+struct PerFrameUBO
+{
+    D3DXVECTOR3 g_EyePos;
+    float _padding_EyePos;
+    D3DXVECTOR3 g_lightPos;
+    float _padding_lightPos;
+    D3DXVECTOR3 AmbiColor;
+    float _padding_AmbiColor;
+    float Diffuse;
+    float Specular;
+    float Rb;
+    float Roughness;
+    float AmbientScale;
+    float Bumps;
+};
+
+struct PerDrawcallUBO
+{
+    D3DXMATRIX g_mWorld;
+    D3DXMATRIX g_mWorldViewProjection;
+};
+
 void InitGUI();
 void CALLBACK OnGUIEvent(UINT nEvent, int nControlID, CDXUTControl *pControl, void *pUserContext);
 HRESULT SceneInitialize(ID3D10Device *pd3dDevice, int bbWidth, int bbHeight);
@@ -626,6 +648,15 @@ HRESULT SceneInitialize(ID3D10Device *pd3dDevice, int bbWidth, int bbHeight)
     HRESULT hr;
     WCHAR str[MAX_PATH];
 
+    D3D10_BUFFER_DESC UpdatedPerFrameDesc =
+    {
+        sizeof(struct UpdatedPerFrame),
+         D3D10_USAGE_DYNAMIC,
+         D3D10_BIND_CONSTANT_BUFFER,
+         D3D10_CPU_ACCESS_WRITE,
+    };
+    V(device->CreateBuffer(&UpdatedPerFrameDesc, NULL, &CbufUpdatedPerFrame));
+
     const D3D10_INPUT_ELEMENT_DESC meshonlylayout[] =
         {
             // Normal character mesh data, setup for GPU skinning
@@ -669,8 +700,8 @@ HRESULT SceneInitialize(ID3D10Device *pd3dDevice, int bbWidth, int bbHeight)
     V_RETURN(pd3dDevice->CreateVertexShader(g_CharacterAnimatedVS, sizeof(g_CharacterAnimatedVS), &g_pAnimationVS));
 
     // Grab some pointers to effects variables
-    g_pWorldViewProjectionVar = g_pEffect10->GetVariableBySemantic("WorldViewProjection")->AsMatrix();
-    g_pWorldVar = g_pEffect10->GetVariableBySemantic("World")->AsMatrix();
+    g_pWorldViewProjectionVar = g_pEffect10->GetVariableByName("g_mWorldViewProjection")->AsMatrix();
+    g_pWorldVar = g_pEffect10->GetVariableByName("g_mWorld")->AsMatrix();
     g_pViewportSizeVar = g_pEffect10->GetVariableBySemantic("ViewportSizePixels")->AsVector();
 
     g_pAnimationsVar = g_pEffect10->GetVariableBySemantic("ANIMATIONS")->AsShaderResource();

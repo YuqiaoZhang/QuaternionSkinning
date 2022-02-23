@@ -13,9 +13,6 @@
     <Filter Include="Source Files\Materials">
       <UniqueIdentifier>{148ff896-a804-44aa-b6e3-af540388c924}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{cbc4bb20-8029-4ca6-9acc-175a84b43cdb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Media Files">
       <UniqueIdentifier>{155672e9-1091-451d-a567-d158ea5d1b74}</UniqueIdentifier>
     </Filter>
@@ -65,19 +62,24 @@
     <ClInclude Include="TextureLibray.h">
       <Filter>Source Files\Materials</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Resource Files</Filter>
+    <ClInclude Include="CharacterAnimatedVS.hlsl.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Manifest Include="QuaternionSkinning.manifest">
-      <Filter>Resource Files</Filter>
-    </Manifest>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="QuaternionSkinning.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <ClInclude Include="CharacterPS.hlsl.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterAnimatedVS_dq.hlsl.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterAnimatedVS_fast.hlsl.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinePS.hlsl.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LineVS.hlsl.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Media\Dwarves\BODY02_color.DDS">
@@ -118,10 +120,28 @@
     <None Include="..\..\Media\Dwarves\dwarf-lod0_rotating_hand.X">
       <Filter>Media Files</Filter>
     </None>
+    <None Include="QuaternionSkinning.hlsli">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="QuaternionSkinning.fx">
+    <FxCompile Include="CharacterAnimatedVS.hlsl">
       <Filter>Source Files</Filter>
-    </CustomBuild>
+    </FxCompile>
+    <FxCompile Include="CharacterPS.hlsl">
+      <Filter>Source Files</Filter>
+    </FxCompile>
+    <FxCompile Include="CharacterAnimatedVS_dq.hlsl">
+      <Filter>Source Files</Filter>
+    </FxCompile>
+    <FxCompile Include="CharacterAnimatedVS_fast.hlsl">
+      <Filter>Source Files</Filter>
+    </FxCompile>
+    <FxCompile Include="LinePS.hlsl">
+      <Filter>Source Files</Filter>
+    </FxCompile>
+    <FxCompile Include="LineVS.hlsl">
+      <Filter>Source Files</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

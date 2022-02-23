@@ -1,0 +1,1 @@
+#include "QuaternionSkinning.hlsli"

@@ -35,6 +35,11 @@
 
 #include "SDKmisc.h"
 
+#include "CharacterAnimatedVS.hlsl.h"
+#include "CharacterAnimatedVS_dq.hlsl.h"
+#include "CharacterAnimatedVS_fast.hlsl.h"
+#include "CharacterPS.hlsl.h"
+
 #define INTERNAL_MAX_INSTANCES_PER_BUFFER 682
 
 int g_NumInstances = 100;
@@ -60,6 +65,7 @@ AnimatedCharacter *g_ReferenceCharacter;
 ID3D10Effect *g_pEffect10;
 ID3D10EffectTechnique *g_pTechAnimationInstanced;
 ID3D10EffectTechnique *g_pTechAnimation;
+ID3D10VertexShader* g_pAnimationVS;
 ID3D10EffectTechnique *g_pTechAnimation_dq;
 ID3D10EffectTechnique *g_pTechAnimation_fast;
 
@@ -649,7 +655,7 @@ HRESULT SceneInitialize(ID3D10Device *pd3dDevice, int bbWidth, int bbHeight)
             {NULL, NULL}};
 
     // Read the D3DX effect file
-    V_RETURN(DXUTFindDXSDKMediaFileCch(str, MAX_PATH, L"QuaternionSkinning.fx"));
+    V_RETURN(DXUTFindDXSDKMediaFileCch(str, MAX_PATH, L"QuaternionSkinning.hlsli"));
     V_RETURN(D3DX10CreateEffectFromFile(str, mac, NULL, "fx_4_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, pd3dDevice, NULL, NULL, &g_pEffect10, NULL, &hr));
 
     delete[] sNumBones;
@@ -659,6 +665,8 @@ HRESULT SceneInitialize(ID3D10Device *pd3dDevice, int bbWidth, int bbHeight)
     g_pTechAnimation = g_pEffect10->GetTechniqueByName("RenderAnimation");
     g_pTechAnimation_dq = g_pEffect10->GetTechniqueByName("RenderAnimation_dq");
     g_pTechAnimation_fast = g_pEffect10->GetTechniqueByName("RenderAnimation_fast");
+
+    V_RETURN(pd3dDevice->CreateVertexShader(g_CharacterAnimatedVS, sizeof(g_CharacterAnimatedVS), &g_pAnimationVS));
 
     // Grab some pointers to effects variables
     g_pWorldViewProjectionVar = g_pEffect10->GetVariableBySemantic("WorldViewProjection")->AsMatrix();
@@ -671,9 +679,7 @@ HRESULT SceneInitialize(ID3D10Device *pd3dDevice, int bbWidth, int bbHeight)
     g_pEnvMapTexVar = g_pEffect10->GetVariableBySemantic("ENVMAP")->AsShaderResource();
 
     // Create our vertex input layouts
-    D3D10_PASS_DESC PassDesc;
-    V_RETURN(g_pTechAnimation->GetPassByIndex(0)->GetDesc(&PassDesc));
-    V_RETURN(pd3dDevice->CreateInputLayout(meshonlylayout, sizeof(meshonlylayout) / sizeof(D3D10_INPUT_ELEMENT_DESC), PassDesc.pIAInputSignature, PassDesc.IAInputSignatureSize, &g_pInputLayout));
+    V_RETURN(pd3dDevice->CreateInputLayout(meshonlylayout, sizeof(meshonlylayout) / sizeof(D3D10_INPUT_ELEMENT_DESC), g_CharacterAnimatedVS, sizeof(g_CharacterAnimatedVS), &g_pInputLayout));
 
     return S_OK;
 }

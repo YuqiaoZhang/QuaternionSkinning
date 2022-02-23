@@ -3,17 +3,16 @@
 
 CharacterAnimation::CharacterAnimation()
 {
-    timeStep = 1/30.f;    // $$ 30fps animation interpolation off the curves
+    timeStep = 1 / 30.f; // $$ 30fps animation interpolation off the curves
 }
 
 CharacterAnimation::~CharacterAnimation()
 {
-    while(frames.size())
+    while (frames.size())
     {
-        delete [] frames.back();
+        delete[] frames.back();
         frames.pop_back();
     }
-
 }
 
 D3DXMATRIX *CharacterAnimation::GetFrameAt(float time)

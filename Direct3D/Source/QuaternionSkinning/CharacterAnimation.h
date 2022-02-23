@@ -1,6 +1,7 @@
-#pragma once 
+#pragma once
 
 #include <vector>
+#include <string>
 
 class CharacterSkeleton;
 struct CharacterBone;
@@ -20,13 +21,13 @@ public:
     D3DXMATRIX *GetQuatFrameAt(float time);
     D3DXMATRIX *GetFrame(int index);
     int GetFrameIndexAt(float time);
-    int GetNumFrames(){return (int)frames.size();}
+    int GetNumFrames() { return (int)frames.size(); }
 
     float duration;
     float timeStep;
 
     std::string name;
-    
+
     FrameList frames;
     FrameList quatFrames;
 };

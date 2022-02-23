@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{865c66f3-b411-4b77-8b83-24f18894dfe7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MeshLoader">
+      <UniqueIdentifier>{c7fc7044-299f-4138-b6de-6c98d690b21b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Character">
+      <UniqueIdentifier>{afec49c1-7222-49bf-a75c-c2f13d59f624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Materials">
+      <UniqueIdentifier>{148ff896-a804-44aa-b6e3-af540388c924}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{cbc4bb20-8029-4ca6-9acc-175a84b43cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Media Files">
+      <UniqueIdentifier>{155672e9-1091-451d-a567-d158ea5d1b74}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="QuaternionSkinning.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AllocHierarchy.cpp">
+      <Filter>Source Files\MeshLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="DX9AnimationLoader.cpp">
+      <Filter>Source Files\MeshLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiAnimationLib.cpp">
+      <Filter>Source Files\MeshLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedCharacter.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedCharacterInstance.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterAnimation.cpp">
+      <Filter>Source Files\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureLibrary.cpp">
+      <Filter>Source Files\Materials</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DX9AnimationLoader.h">
+      <Filter>Source Files\MeshLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiAnimation.h">
+      <Filter>Source Files\MeshLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedCharacter.h">
+      <Filter>Source Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedCharacterInstance.h">
+      <Filter>Source Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterAnimation.h">
+      <Filter>Source Files\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureLibray.h">
+      <Filter>Source Files\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="QuaternionSkinning.manifest">
+      <Filter>Resource Files</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="QuaternionSkinning.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\Media\Dwarves\BODY02_color.DDS">
+      <Filter>Media Files</Filter>
+    </Image>
+    <Image Include="..\..\Media\Dwarves\BODY03_color.DDS">
+      <Filter>Media Files</Filter>
+    </Image>
+    <Image Include="..\..\Media\directx.ico">
+      <Filter>Media Files</Filter>
+    </Image>
+    <Image Include="..\..\Media\Dwarves\HEAD02_color.DDS">
+      <Filter>Media Files</Filter>
+    </Image>
+    <Image Include="..\..\Media\Dwarves\HEAD03_color.DDS">
+      <Filter>Media Files</Filter>
+    </Image>
+    <Image Include="..\..\Media\Dwarves\LEG02_color.DDS">
+      <Filter>Media Files</Filter>
+    </Image>
+    <Image Include="..\..\Media\Dwarves\LEG03_color.DDS">
+      <Filter>Media Files</Filter>
+    </Image>
+    <Image Include="..\..\Media\Dwarves\MACE02_color.DDS">
+      <Filter>Media Files</Filter>
+    </Image>
+    <Image Include="..\..\Media\Dwarves\SHIELD02_color.DDS">
+      <Filter>Media Files</Filter>
+    </Image>
+    <Image Include="..\..\Media\Dwarves\SHIELD03_color.DDS">
+      <Filter>Media Files</Filter>
+    </Image>
+    <Image Include="..\..\Media\Dwarves\SHOULDER02_color.DDS">
+      <Filter>Media Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Media\Dwarves\dwarf-lod0_rotating_hand.X">
+      <Filter>Media Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="QuaternionSkinning.fx">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

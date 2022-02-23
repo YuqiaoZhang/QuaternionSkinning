@@ -1,12 +1,13 @@
-#pragma once 
+#pragma once
 
 #include <vector>
+#include <string>
 
 enum SKINNING_TYPE
 {
-    ST_LINEAR = 0, 
-    ST_DUALQUAT, 
-    ST_FAST_DUALQUAT, 
+    ST_LINEAR = 0,
+    ST_DUALQUAT,
+    ST_FAST_DUALQUAT,
 };
 
 class CharacterAnimation;
@@ -19,7 +20,6 @@ class CharacterAnimation;
 class AnimatedCharacter
 {
 public:
-
     struct Vertex
     {
         D3DXVECTOR3 position;
@@ -33,9 +33,9 @@ public:
     // This represents a uniquie sub-section of the character
     struct SubMesh
     {
-        ID3D10Buffer*pVB;
-        ID3D10Buffer*pIB;
-        int numVertices,numIndices;
+        ID3D10Buffer *pVB;
+        ID3D10Buffer *pIB;
+        int numVertices, numIndices;
         int meshSet;
         UINT nameHash;
         std::string texture;
@@ -48,20 +48,18 @@ public:
     AnimatedCharacter();
     ~AnimatedCharacter();
 
-    CharacterAnimation *GetAnimation(int index){return index < (int)m_animations.size()?m_animations[index]:NULL;};
-    HRESULT Initialize(ID3D10Device* pd3dDevice);
+    CharacterAnimation *GetAnimation(int index) { return index < (int)m_animations.size() ? m_animations[index] : NULL; };
+    HRESULT Initialize(ID3D10Device *pd3dDevice);
     void Release();
 
-    void addSingleDrawMesh(ID3D10Device* pd3dDevice,Vertex *vertices,UINT vtxCount, DWORD *indices, UINT idxCount,int meshSet,UINT nameHash, std::string texture, std::string normal);
+    void addSingleDrawMesh(ID3D10Device *pd3dDevice, Vertex *vertices, UINT vtxCount, DWORD *indices, UINT idxCount, int meshSet, UINT nameHash, std::string texture, std::string normal);
 
 protected:
-
-    void addSingleDrawMesh(ID3D10Buffer*pVB,int numVerts,ID3D10Buffer*pIB,int numIndices,int meshSet,UINT namehash,std::string texture, std::string normal);
-    void CreateDefaultBuffer(ID3D10Device* pd3dDevice,void *data, UINT size,UINT bindFlags, ID3D10Buffer **ppBuffer);
-    void CreateEmptyDefaultBuffer(ID3D10Device* pd3dDevice, UINT size,UINT bindFlags, ID3D10Buffer **ppBuffer);
+    void addSingleDrawMesh(ID3D10Buffer *pVB, int numVerts, ID3D10Buffer *pIB, int numIndices, int meshSet, UINT namehash, std::string texture, std::string normal);
+    void CreateDefaultBuffer(ID3D10Device *pd3dDevice, void *data, UINT size, UINT bindFlags, ID3D10Buffer **ppBuffer);
+    void CreateEmptyDefaultBuffer(ID3D10Device *pd3dDevice, UINT size, UINT bindFlags, ID3D10Buffer **ppBuffer);
 
 public:
-
     // DX10 vars
     ID3D10Texture2D *animationsTexture;
     SubmeshList m_characterMeshes;
@@ -71,9 +69,8 @@ public:
 
     int numAttachments;
     int numBones;
-    float boundingRadius;    // rough gauge of size
+    float boundingRadius; // rough gauge of size
 
     // character logic consts
     float fWalkSpeed;
-
 };

@@ -41,15 +41,14 @@ class DX9AnimationLoader
     friend class CharacterAnimation;
 
 public:
-
     // Input/intermediate structures
     WCHAR fullFilename[MAX_PATH];
     CMultiAnim *multiAnim;
     CMultiAnimAllocateHierarchy *AH;
     IDirect3D9 *pD3D9;
-    IDirect3DDevice9*pDev9;
+    IDirect3DDevice9 *pDev9;
     ID3D10Device *pDev10;
-    CONST D3D10_INPUT_ELEMENT_DESC*playout;
+    CONST D3D10_INPUT_ELEMENT_DESC *playout;
     int cElements;
 
     std::vector<std::string> frameNames;
@@ -57,32 +56,31 @@ public:
     std::vector<std::string> attachmentNames;
     std::vector<LPD3DXSKININFO> pSkinInfos;
     D3DXMATERIAL *pMats;
-    std::vector<MultiAnimMC*> meshList;
-    D3DXMATRIX *pBoneOffsetMatrices;    // this is the bind pose matrices
+    std::vector<MultiAnimMC *> meshList;
+    D3DXMATRIX *pBoneOffsetMatrices; // this is the bind pose matrices
     D3DXMATRIX **pBoneMatrixPtrs;    // pointers into the skeleton for each bone, this gets updates as animation continues
 
-
-//    AnimatedCharacter::Vertex *vertices;
-//    DWORD *indices;
-//    int numVertices;
-//    int numIndices;
-//    std::string material;
+    //    AnimatedCharacter::Vertex *vertices;
+    //    DWORD *indices;
+    //    int numVertices;
+    //    int numIndices;
+    //    std::string material;
 
     // output vars
-    AnimatedCharacter*pAnimatedCharacter;
-    
+    AnimatedCharacter *pAnimatedCharacter;
+
     DX9AnimationLoader();
-    HRESULT load(ID3D10Device *pDev10, LPWSTR filename,CONST D3D10_INPUT_ELEMENT_DESC*playout,int cElements,bool bLoadAnimations=true,float timeStep=1/30.f, SKINNING_TYPE eSkinningType = ST_LINEAR);
+    HRESULT load(ID3D10Device *pDev10, LPWSTR filename, CONST D3D10_INPUT_ELEMENT_DESC *playout, int cElements, bool bLoadAnimations = true, float timeStep = 1 / 30.f, SKINNING_TYPE eSkinningType = ST_LINEAR);
 
     void prepareDevice();
     HRESULT loadDX9Data(LPWSTR filename);
-    void fillMeshList(D3DXFRAME *pFrame,D3DXFRAME *pFrameParent,const CHAR*pLastNameFound);    // recursive
-    void generateDX10Buffer(CONST D3D10_INPUT_ELEMENT_DESC*playout,int cElements, bool bAddSkeleton=true);
+    void fillMeshList(D3DXFRAME *pFrame, D3DXFRAME *pFrameParent, const CHAR *pLastNameFound); // recursive
+    void generateDX10Buffer(CONST D3D10_INPUT_ELEMENT_DESC *playout, int cElements, bool bAddSkeleton = true);
     void extractSkeleton();
     void processAnimations(float timeStep, SKINNING_TYPE eSkinningType);
     void cleanup();
 
     void extractFrame(CharacterAnimation *pAnimation, SKINNING_TYPE eSkinningType);
-    void UpdateFrames( MultiAnimFrame * pFrame, D3DXMATRIX * pmxBase );
-    LPCSTR FindLastBoneParentOf(MultiAnimFrame * pFrameRoot,MultiAnimMC *pMeshContainer, LPCSTR pLastBoneName);
+    void UpdateFrames(MultiAnimFrame *pFrame, D3DXMATRIX *pmxBase);
+    LPCSTR FindLastBoneParentOf(MultiAnimFrame *pFrameRoot, MultiAnimMC *pMeshContainer, LPCSTR pLastBoneName);
 };

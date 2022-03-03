@@ -751,6 +751,9 @@ void DX9AnimationLoader::extractFrame(CharacterAnimation *pAnimation, SKINNING_T
         for (UINT k = 0; k < 3; k++)
             rotationmat.m[3][k] = 0.0;
         rotationmat.m[3][3] = 1.0;
+        
+        // Transformation decomposition
+        // https://pbr-book.org/3ed-2018/Geometry_and_Transformations/Animating_Transformations#AnimatedTransformImplementation
         D3DXQuaternionRotationMatrix(&quat, &rotationmat);
         //D3DXQuaternionNormalize ( &quat, &quat ) ;
         //D3DXMatrixRotationQuaternion ( &rotationmat, &quat ) ;

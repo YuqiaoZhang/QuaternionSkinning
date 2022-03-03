@@ -128,12 +128,14 @@ struct PerFrameUBO
     float AmbientScale;
     float Bumps;
 };
+ID3D10Buffer *cbPerFrame;
 
 struct PerDrawcallUBO
 {
     D3DXMATRIX g_mWorld;
     D3DXMATRIX g_mWorldViewProjection;
 };
+ID3D10Buffer* cbPerDrawCall;
 
 void InitGUI();
 void CALLBACK OnGUIEvent(UINT nEvent, int nControlID, CDXUTControl *pControl, void *pUserContext);
@@ -648,14 +650,23 @@ HRESULT SceneInitialize(ID3D10Device *pd3dDevice, int bbWidth, int bbHeight)
     HRESULT hr;
     WCHAR str[MAX_PATH];
 
-    D3D10_BUFFER_DESC UpdatedPerFrameDesc =
-    {
-        sizeof(struct UpdatedPerFrame),
-         D3D10_USAGE_DYNAMIC,
-         D3D10_BIND_CONSTANT_BUFFER,
-         D3D10_CPU_ACCESS_WRITE,
-    };
-    V(device->CreateBuffer(&UpdatedPerFrameDesc, NULL, &CbufUpdatedPerFrame));
+    D3D10_BUFFER_DESC PerFrameUBODesc =
+        {
+            sizeof(struct PerFrameUBO),
+            D3D10_USAGE_DYNAMIC,
+            D3D10_BIND_CONSTANT_BUFFER,
+            D3D10_CPU_ACCESS_WRITE,
+        };
+    V(pd3dDevice->CreateBuffer(&PerFrameUBODesc, NULL, &cbPerFrame));
+
+    D3D10_BUFFER_DESC PerDrawcallUBODesc =
+        {
+            sizeof(struct PerDrawcallUBO),
+            D3D10_USAGE_DYNAMIC,
+            D3D10_BIND_CONSTANT_BUFFER,
+            D3D10_CPU_ACCESS_WRITE,
+        };
+    V(pd3dDevice->CreateBuffer(&PerDrawcallUBODesc, NULL, &cbPerDrawCall));
 
     const D3D10_INPUT_ELEMENT_DESC meshonlylayout[] =
         {
